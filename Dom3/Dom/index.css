@@ -1,0 +1,15 @@
+/* Fill CSS here */
+
+thead > tr > th {
+    border: 2px solid black;
+}
+tbody > tr > td {
+    border: 2px solid black;
+}
+
+table{
+    border: 2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 10px;
+}
