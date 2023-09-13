@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+    function BankAccount(acnumber, name, type, bal) {
+        this.accountNumber = acnumber;
+        this.name = name;
+        this.type = type;
+        this.balance = bal;
+
+        this.deposit = function (depo) {
+            console.log(depo, "has been added your account")
+            this.balance += depo;
+        }
+
+        this.withdraw = function (cur) {
+
+            if (this.balance > cur) {
+                this.balance -= cur;
+                console.log(cur, "successfully withdraw");
+            }
+            else {
+                console.log("you have Insufficient balance")
+            }
+
+        }
+
+
+        this.checkBalance = function () {
+            console.log("Your current balance " + this.balance)
+        }
+
+        this.isActive = function(){
+            if(this.balance > 0){
+                console.log("your account is active");
+            }
+            else{
+                console.log("your account is not active")
+            }
+        }
+
+
+    }
+
+    let vijayAccount = new BankAccount(34567456, "vijay", "saving", 10000)
+    // console.log(vijayAccount)
+
+    vijayAccount.deposit(5000)
+    vijayAccount.withdraw(3000)
+    vijayAccount.checkBalance()
+    vijayAccount.isActive()
+
+
+    let jayAccount = new BankAccount(34567456, "jay", "saving", 20000)
+    // console.log(vijayAccount)
+
+    jayAccount.deposit(10000)
+    jayAccount.withdraw(23000)
+    jayAccount.checkBalance()
+    jayAccount.isActive()
+
+</script>
