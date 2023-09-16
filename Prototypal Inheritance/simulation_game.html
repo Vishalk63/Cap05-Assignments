@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+
+    function Vehicle(brand, model, speed, fuelType) {
+        this.brand = brand;
+        this.model = model;
+        this.speed = speed;
+        this.fuelType = fuelType;
+    }
+
+    Vehicle.prototype.accelerate = function () {
+        console.log(this.brand + " Vehicle is accelerating")
+    }
+
+    Vehicle.prototype.brake = function () {
+        console.log(this.brand +" Vehicle is braking")
+    }
+
+    Vehicle.prototype.refuel = function () {
+        console.log(this.brand +" Vehicle is refueling")
+    }
+
+    let vehicle1 = new Vehicle("maruti", "2010", 120, "petrol")
+
+    // console.log(vehicle1);
+
+    function Car (brand,model,speed,fuelType,numberOfWheels){
+        Vehicle.call(this,brand,model,speed,fuelType)
+
+        this.numberOfWheels=numberOfWheels;
+    }
+
+    Car.prototype.honk = function(){
+        console.log(this.brand +" Vehicle is honking")
+    }
+
+    Object.setPrototypeOf(Car.prototype,Vehicle.prototype)
+
+    let car1 = new Car("swift","2015",200,"petrol",6)
+    // console.log(car1.accelerate())
+
+
+    function Airplane (brand,model,speed,fuelType,numberOfWheels,numberOfEngines,hasLandingGear){
+        Car.call(this,brand,model,speed,fuelType,numberOfWheels)
+        this.numberOfEngines = numberOfEngines;
+        this.hasLandingGear = hasLandingGear;
+    }
+
+    Airplane.prototype.takeOff = function(){
+        console.log(this.brand +" Vehical is takingoff")
+    }
+
+    Object.setPrototypeOf(Airplane.prototype,Car.prototype)
+
+    let airplane1 = new Airplane("vishal","2023",500,"petrol",2,4,10)
+
+    console.log(vehicle1)
+    vehicle1.accelerate()
+    vehicle1.brake()
+    vehicle1.refuel()
+
+    console.log(car1)
+    car1.accelerate()
+    car1.brake()
+    car1.refuel()
+    car1.honk()
+
+    console.log(airplane1)
+    airplane1.accelerate()
+    airplane1.brake()
+    airplane1.refuel()
+    airplane1.honk()
+    airplane1.takeOff()
+
+
+
+
+
+
+
+</script>
