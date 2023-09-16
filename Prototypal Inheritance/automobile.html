@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+    <script>
+        
+        function Mobile (brand,camera,processor,display){
+            this.brand = brand;
+            this.camera = camera;
+            this.processor = processor;
+            this.display = display;
+        }
+
+
+        Mobile.prototype.calling = function(){
+            console.log(this.brand + " is calling")
+        }
+
+        Mobile.prototype.videocalling = function(){
+            console.log(this.brand + " is videocalling")
+        }
+
+        let mobile1 = new Mobile("Poco","50mp","sd888","4k")
+
+        // console.log(mobile1.videocalling())
+
+
+        function Car (brand,model,fuelType){
+            this.brand = brand;
+            this.model = model;
+            this.fuelType = fuelType;
+        }
+
+        Car.prototype.speed = function(){
+            console.log(this.brand + " is speeding")
+        }
+
+        Object.setPrototypeOf(Car.prototype,Mobile.prototype)
+
+        let car1 = new Car("Honda",2020,320,"petrol")
+
+        // console.log(car1.videocalling())
+
+
+        console.log(mobile1)
+        mobile1.calling()
+        mobile1.videocalling()
+
+        console.log(car1)
+        car1.calling()
+        car1.videocalling()
+        car1.speed()
+    </script>
