@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+</head>
+
+<body>
+    <div>
+        <label>Hours: </label>
+        <input type="number" id="hours" min="0" value="0">
+
+        <label>Minutes: </label>
+        <input type="number" id="minutes" min="0" max="59" value="0">
+
+        <label>Seconds: </label>
+        <input type="number" id="seconds" min="0" max="59" value="0">
+    </div>
+
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+
+    <div>
+        <h1 id="h1">00:00:00</h1>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let intervalId;
+    let timeRemaining;
+
+    function startTimer() {
+        if (intervalId) return; // If timer is already running, exit
+
+        const hours = parseInt(document.getElementById("hours").value);
+        const minutes = parseInt(document.getElementById("minutes").value);
+        const seconds = parseInt(document.getElementById("seconds").value);
+
+        display = document.getElementById("h1");
+
+        timeRemaining = hours * 3600 + minutes * 60 + seconds;
+        // 3600
+        intervalId = setInterval(function () {
+            timeRemaining--;//3599 Sec
+
+            const hrs = Math.floor(timeRemaining / 3600);
+            const mins = Math.floor((timeRemaining % 3600) / 60);
+            const secs = timeRemaining % 60;
+
+            document.getElementById("hours").value = hrs;
+            document.getElementById("minutes").value = mins;
+            document.getElementById("seconds").value = secs;
+
+            display.innerText = `${hrs}:${mins}:${secs}`
+
+            if (timeRemaining <= 0) {
+                clearInterval(intervalId);
+                intervalId = null;
+                alert("Time's up!");
+            }
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+
+    function resetTimer() {
+        pauseTimer();
+        document.getElementById("hours").value = 0;
+        document.getElementById("minutes").value = 0;
+        document.getElementById("seconds").value = 0;
+        display.innerText = "00:00:00"
+
+    }
+</script>
