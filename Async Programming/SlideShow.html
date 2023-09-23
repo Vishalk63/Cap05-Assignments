@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #slideshow {
+            width: 500px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="slideshow">
+            <img src="https://soliloquywp.com/wp-content/uploads/2018/11/nb_ist_cover.jpg" alt="">
+            <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/ab6f1d11-38b9-47e4-9492-7e9ecd2006c3/orig" alt="">
+            <img src="https://media.istockphoto.com/id/1070730232/photo/homemade-cheeseburger-sliders-with-tomato.jpg?b=1&s=612x612&w=0&k=20&c=K_uUqAgCdCQdfQdHTQNTMGGVVMppZUOD28n5bL13Xjo=" alt="">
+            <img src="https://e0.pxfuel.com/wallpapers/352/301/desktop-wallpaper-the-beautiful-homepage-slider-creates-a-clear-call-to-action-nature.jpg" alt="">
+            <img src="https://i.pinimg.com/736x/c0/c0/68/c0c0688a33511ddf927c2e9f2af478ca.jpg" alt="">
+        </div>
+        <button onclick="toggleSlideShow()">Start/Stop</button>
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let slides = document.querySelectorAll('#slideshow img');
+    let slideIndex = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.style.display = 'block';
+            }
+            else {
+                slide.style.display = 'none';
+            }
+        })
+    }
+
+    // Automation Starts
+
+    function startSlideShow() {
+        slideInterval = setInterval(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+            console.log(slideIndex)
+        }, 2000)
+    }
+
+    function stopSlideShow() {
+        clearInterval(slideInterval);
+    }
+
+
+    function toggleSlideShow() {
+        if (slideInterval) {
+            stopSlideShow();
+            slideInterval = null;
+        }
+        else {
+            startSlideShow();
+        }
+    }
+
+
+    // Manual Process
+    function nextSlide() {
+        stopSlideShow();
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+    }
+
+    function prevSlide() {
+        stopSlideShow();
+        slideIndex = (slideIndex - 1) % slides.length;
+        showSlide(slideIndex);
+    }
+
+
+
+
+
+    showSlide(slideIndex);
+</script>
