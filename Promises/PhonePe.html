@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body{
+            margin-top: 20Vh;
+        }
+        #parent {
+            background-color: rgb(132, 255, 255);
+            width: 30%;
+            height: 50vh;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            border-radius: 35px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            
+        }
+
+        #child {
+            text-align: center;
+        }
+
+
+
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+
+            /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #load{
+            margin-left: 60px;
+            margin-top: 100px;
+            display: none;
+        }
+
+        .mycls{
+            margin-top: 100px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="child">
+            <h1>Phonepe</h1>
+            <form id="form">
+                <input type="number" id="rs">
+                <input type="submit" value="Pay">
+            </form>
+            <div id="load">
+                <div class="loader" ></div>
+            </div>
+
+            <div id="root"></div>
+        </div>
+
+        
+    </div>
+
+    
+</body>
+
+</html>
+
+<script>
+    let pay = document.getElementById("form");
+    let parent = document.getElementById("parent");
+    let root = document.getElementById("root");
+
+    function showspinner() {
+        document.getElementById("load").style.display = "block"
+        parent.style.backgroundColor ="rgb(248, 248, 41)"
+        document.getElementById('root').innerText=""
+    
+    }
+
+    function hidespinner() {
+        document.getElementById("load").style.display = "none"
+        parent.style.backgroundColor ="white"
+
+    }
+
+    pay.addEventListener("submit", function (e) {
+        e.preventDefault()
+        let rs = document.getElementById('rs').value;
+        // console.log(rs)
+        showspinner()
+        let myprome = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                hidespinner()
+                if (rs == "") {
+                    reject()
+                }
+                else {
+                    resolve()
+                }
+            }, 2000)
+        }).then(function (res) {
+            parent.style.backgroundColor ="greenyellow"
+            let h1 = document.createElement("h1");
+            h1.innerText = `${rs} Rs Sucessfully Paid`
+            h1.classList.add("mycls")
+            root.innerHTML=""
+            root.append(h1)
+        })
+
+        .catch(function(err){
+            parent.style.backgroundColor ="rgb(253, 29, 29)"
+            let h2 = document.createElement("h1");
+            h2.innerText = `Payment Failed`
+            h2.classList.add("mycls")
+            root.innerHTML=""
+            root.append(h2)
+        })
+
+
+    })
+</script>
