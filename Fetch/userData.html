@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f9fc;
+        }
+
+        .container {
+            /* width: 80%; */
+            max-width: 800px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .users-list {
+            margin-top: 20px;
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        .user-card img {
+            width: 60px;
+            height: 60px;
+            /* max-width: 100px; */
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-details .name {
+            font-weight: bold;
+        }
+
+        .user-details .email {
+            color: #777;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="dataShow()">Fetch Users</button>
+    </div>
+    <div id="users-list" class="users-list">
+        <!-- <div class="user-card">
+            <img src="" alt="">
+            <div class="user-details">
+                <span class="name"></span>
+                <span class="email"></span>
+            </div>
+        </div> -->
+    </div>
+</body>
+</html>
+<script>
+
+
+    function dataShow(){
+        fetch("https://reqres.in/api/users")
+        .then(function(res){
+            return res.json()
+        })
+        .then(function(data){
+            myfun(data.data)
+        })
+        .catch(function(err){
+            alert("unable to fetch api")
+        })
+    }
+
+    let root = document.getElementById('users-list')
+
+    let output = ""
+    function myfun(data){
+        console.log(data)
+        data.forEach(function(elm){
+          console.log(elm)
+        output += `<div class="user-card">
+            <img src="${elm.avatar}" alt="User avatar">
+            <div class="user-details">
+                <span class="name">${elm.first_name} ${elm.last_name}</span>
+                <span class="email">${elm.email}</span>
+            </div>
+        </div>`
+            
+        })
+        root.innerHTML=output;
+    }
+</script>
