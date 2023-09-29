@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>*Counter*</h1>
+    <h1 id="display">0</h1>
+    <hr>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <hr>
+    
+    <button onclick="increament()">Increament</button>
+    <button onclick="decreament()">Decreament</button>
+
+</body>
+</html>
+<script>
+    let timer = true;
+    let myInterval;
+
+    function start(){
+        let count = Number(document.getElementById("display").innerText);
+        if(timer==true){
+            myInterval = setInterval(function(){
+                count++
+                document.getElementById('display').innerText = count;
+            },1000)
+        }
+       
+    }
+
+    function stop(){
+        clearInterval(myInterval)
+    }
+
+    function increament(){
+        clearInterval(myInterval)
+        let display =document.getElementById('display');
+        let num = Number(display.innerText)
+        num++
+        display.innerText = num
+    }
+
+    function decreament(){
+        clearInterval(myInterval)
+        let display =document.getElementById('display');
+        let num = Number(display.innerText)
+        num--
+        display.innerText = num
+    }
+
+</script>
