@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* margin-top: 200px; */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #searchparent {
+            width: 100%;
+            height: 200px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #searchbox {
+            padding: 10px 90px;
+            font-size: 19px;
+            border-radius: 5px 0px 0px 5px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+        }
+
+        button {
+            border-radius: 0px 5px 5px 0px;
+            padding: 13px 26px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: transform .3s;
+            font-size: 18px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        #root {
+            display: grid;
+            /* grid-template-columns: repeat(4, 1fr); */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .cart {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            border-radius: 15px;
+            transition: transform .3s;
+            background-color: white;
+            color: black;
+
+        }
+
+        .cart:hover{
+            transform: scale(1.1);
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <!-- search area -->
+        <div id="searchparent">
+            <input type="text" id="searchbox" placeholder="Search Movie...">
+            <button onclick="mySearch()">Search</button>
+        </div>
+
+        <div id="root"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    let apikey = `d4f175f8`
+    // let query = "matrix"
+
+    let inp = document.getElementById("searchbox");
+    inp.addEventListener("input", function () {
+        setTimeout(function () {
+            // console.log(inp.value)
+            inputSearch(inp.value);
+        }, 200)
+    })
+
+    async function inputSearch(query) {
+        try {
+            let url = `http://www.omdbapi.com/?apikey=${apikey}&s=${query}`
+            const reponse = await fetch(url);
+            const data = await reponse.json();
+            showdata(data.Search)
+        } catch (err) {
+            console.log("Unable to Fetch")
+        }
+    }
+
+    async function mySearch() {
+
+        try {
+            let query = document.getElementById("searchbox").value;
+            let url = `http://www.omdbapi.com/?apikey=${apikey}&s=${query}`
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data.Search)
+            showdata(data.Search)
+
+        } catch (err) {
+            alert("Searchbar is empty")
+        }
+
+
+    }
+
+    let root = document.getElementById('root');
+    function showdata(data) {
+        root.innerHTML = ""
+        // console.log(data)
+        data.forEach(function (elm) {
+            // console.log(elm)
+            let cart = document.createElement("div");
+            cart.className = "cart"
+
+            let elm_img = document.createElement("img");
+            elm_img.src = elm.Poster;
+
+            let title = document.createElement("h1");
+            title.innerText = elm.Title;
+
+            cart.append(elm_img, title)
+            root.append(cart)
+
+        })
+    }
+</script>
