@@ -92,13 +92,15 @@
 <script>
     let apikey = `d4f175f8`
     // let query = "matrix"
+    let timer;
 
     let inp = document.getElementById("searchbox");
     inp.addEventListener("input", function () {
-        setTimeout(function () {
+        clearTimeout(timer);
+         timer = setTimeout(function () {
             // console.log(inp.value)
             inputSearch(inp.value);
-        }, 200)
+        }, 500)
     })
 
     async function inputSearch(query) {
